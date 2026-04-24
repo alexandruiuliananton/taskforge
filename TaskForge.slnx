@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/TaskForge.Api/TaskForge.Api.csproj" />
+    <Project Path="src/TaskForge.Application/TaskForge.Application.csproj" />
+    <Project Path="src/TaskForge.Domain/TaskForge.Domain.csproj" />
+    <Project Path="src/TaskForge.Infrastructure/TaskForge.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TaskForge.Application.Tests/TaskForge.Application.Tests.csproj" />
+  </Folder>
+</Solution>
