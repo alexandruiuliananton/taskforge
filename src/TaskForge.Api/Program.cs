@@ -1,41 +1,45 @@
+using Microsoft.EntityFrameworkCore;
+using TaskForge.Api.Middleware;
+using TaskForge.Application.Commands.Tasks.CompleteTask;
+using TaskForge.Application.Commands.Tasks.CreateTask;
+using TaskForge.Application.Commands.Tasks.DeleteTask;
+using TaskForge.Application.Commands.Tasks.UpdateTask;
+using TaskForge.Application.Interfaces;
+using TaskForge.Infrastructure.Messaging.Publishers;
+using TaskForge.Infrastructure.Persistence;
+using TaskForge.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddDbContext<TaskForgeDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddHostedService<OutboxProcessor>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<CreateTaskHandler>();
+builder.Services.AddScoped<UpdateTaskHandler>();
+builder.Services.AddScoped<CompleteTaskHandler>();
+builder.Services.AddScoped<DeleteTaskHandler>();
+builder.Services.AddScoped<TaskForge.Application.Readers.Tasks.ITaskQueryReader, TaskForge.Infrastructure.Readers.Tasks.TaskQueryReader>();
+
+builder.Services.AddSingleton<ServiceBusPublisher>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.MapControllers();
 
-app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseMiddleware<CorrelationIdMiddleware>();
 
-var summaries = new[]
+if(app.Environment.IsDevelopment())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}    
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
