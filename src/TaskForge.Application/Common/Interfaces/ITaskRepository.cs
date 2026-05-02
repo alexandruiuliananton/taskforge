@@ -1,6 +1,6 @@
 ﻿using TaskForge.Domain.Entities;
 
-namespace TaskForge.Application.Interfaces
+namespace TaskForge.Application.Common.Interfaces
 {
     public interface ITaskRepository
     {

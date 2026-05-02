@@ -1,18 +1,20 @@
 ﻿using Moq;
 using TaskForge.Application.Commands.Tasks.CreateTask;
-using TaskForge.Application.Interfaces;
 using TaskForge.Domain.Entities;
 using FluentAssertions;
+using TaskForge.Application.Common.Interfaces;
 
 namespace TaskForge.Application.Tests;
 
 public class CreateTaskTests
 {
     private readonly Mock<ITaskRepository> _taskRepositoryMock;
+    private readonly Mock<IEventPublisher> _eventPublisherMock;
 
     internal CreateTaskTests()
     {
         _taskRepositoryMock = new Mock<ITaskRepository>();
+        _eventPublisherMock = new Mock<IEventPublisher>();
     }
 
     [Fact]
@@ -20,7 +22,7 @@ public class CreateTaskTests
     {
         // Arrange
 
-        var handler = new CreateTaskHandler(_taskRepositoryMock.Object);
+        var handler = new CreateTaskHandler(_taskRepositoryMock.Object, _eventPublisherMock.Object);
 
         var command = new CreateTaskCommand
         {
@@ -46,8 +48,8 @@ public class CreateTaskTests
     public async Task Handle_Should_CallRepositoryOnce()
     {
         // Arrange
-
-        var handler = new CreateTaskHandler(_taskRepositoryMock.Object);
+            
+        var handler = new CreateTaskHandler(_taskRepositoryMock.Object, _eventPublisherMock.Object);
 
         var command = new CreateTaskCommand
         {

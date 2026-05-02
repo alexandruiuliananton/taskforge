@@ -1,8 +1,11 @@
-﻿namespace TaskForge.Domain.Events
+﻿using TaskForge.Domain.Entities;
+
+namespace TaskForge.Domain.Events
 {
     public class TaskCreatedEvent : IDomainEvent
     {
-        public Guid Id { get; set; }
+        public Guid TaskId { get; private set; }
+        public TaskPriority TaskPriority { get; private set; }
         public DateTime OccurredOn
         {
             get
@@ -11,9 +14,10 @@
             }
         }
 
-        public TaskCreatedEvent(Guid taskId)
+        public TaskCreatedEvent(Guid taskId, TaskPriority taskPriority)
         {
-            taskId = taskId;
+            TaskId = taskId;
+            TaskPriority = taskPriority;
         }
 
     }

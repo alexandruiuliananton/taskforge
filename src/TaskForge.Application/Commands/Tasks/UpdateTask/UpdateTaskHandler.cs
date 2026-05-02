@@ -1,4 +1,4 @@
-using TaskForge.Application.Interfaces;
+using TaskForge.Application.Common.Interfaces;
 
 namespace TaskForge.Application.Commands.Tasks.UpdateTask;
 

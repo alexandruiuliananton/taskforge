@@ -39,6 +39,7 @@ namespace TaskForge.Api.Controllers
             command.CorrelationId = correlationId;
 
             var id = await _createHandler.Handle(command);
+
             return Ok(id);
         }
 
@@ -72,6 +73,7 @@ namespace TaskForge.Api.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             var task = await _query.GetById(id);
+
             return task == null ? NotFound() : Ok(task);
         }
 
@@ -79,6 +81,7 @@ namespace TaskForge.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var tasks = await _query.GetAll();
+
             return Ok(tasks);
         }
     }

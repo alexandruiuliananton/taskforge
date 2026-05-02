@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskForge.Application.Interfaces;
+using TaskForge.Application.Common.Interfaces;
 using TaskForge.Domain.Entities;
 using TaskForge.Infrastructure.Persistence;
 

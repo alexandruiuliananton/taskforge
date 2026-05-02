@@ -28,7 +28,7 @@ namespace TaskForge.Infrastructure.Persistence
 
                 foreach (var message in messages)
                 {
-                    await _serviceBusPublisher.PublishTaskAsync(message.Type, message.Payload);
+                    await _serviceBusPublisher.PublishAsync(message.Type, message.Payload);
                     message.ProcessedOn = DateTime.UtcNow;
                 }
 

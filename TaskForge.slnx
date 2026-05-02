@@ -4,6 +4,7 @@
     <Project Path="src/TaskForge.Application/TaskForge.Application.csproj" />
     <Project Path="src/TaskForge.Consumer/TaskForge.Consumer.csproj" />
     <Project Path="src/TaskForge.Domain/TaskForge.Domain.csproj" />
+    <Project Path="src/TaskForge.Identity/TaskForge.Identity.csproj" />
     <Project Path="src/TaskForge.Infrastructure/TaskForge.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">

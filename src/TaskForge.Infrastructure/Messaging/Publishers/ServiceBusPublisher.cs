@@ -1,10 +1,11 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using System.Text;
+using TaskForge.Application.Common.Interfaces;
 
 namespace TaskForge.Infrastructure.Messaging.Publishers
 {
-    public class ServiceBusPublisher
+    public class ServiceBusPublisher : IEventPublisher
     {
         private readonly ServiceBusClient _serviceBusClient;
         private readonly ServiceBusSender _serviceBusSender;
@@ -18,9 +19,9 @@ namespace TaskForge.Infrastructure.Messaging.Publishers
             _serviceBusSender = _serviceBusClient.CreateSender(queueName);
         }
 
-        public async Task PublishTaskAsync(string messageType, string payLoad)
+        public async Task PublishAsync(string messageType, string payload)
         {
-            var message = new ServiceBusMessage(Encoding.UTF8.GetBytes(payLoad))
+            var message = new ServiceBusMessage(Encoding.UTF8.GetBytes(payload))
             {
                 Subject = messageType
             };

@@ -21,6 +21,10 @@ namespace TaskForge.Infrastructure.Persistence
             {
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Title).IsRequired().HasMaxLength(200);
+                entity.Property(x => x.Priority)
+                    .HasConversion<int>()
+                    .IsRequired()
+                    .HasDefaultValue(Domain.Entities.TaskPriority.Normal);
             });
         }
 
@@ -36,7 +40,7 @@ namespace TaskForge.Infrastructure.Persistence
                 {
                     Id = Guid.NewGuid(),
                     OccurredOn = domainEvent.OccurredOn,
-                    Type = domainEvent.GetType().FullName,
+                    Type = domainEvent.GetType().FullName ?? string.Empty,
                     Payload = System.Text.Json.JsonSerializer.Serialize(domainEvent)
                 };
 
