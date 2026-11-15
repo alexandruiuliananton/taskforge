@@ -1,8 +1,8 @@
-\# TaskForge
+\# Operis
 
 
 
-TaskForge is a workflow-driven task management system built with Clean Architecture using .NET.
+Operis is a workflow-driven task management system built with Clean Architecture using .NET.
 
 
 
@@ -52,19 +52,19 @@ TaskForge is a workflow-driven task management system built with Clean Architect
 
 src/
 
-TaskForge.Api
+Operis.Api
 
-TaskForge.Application
+Operis.Application
 
-TaskForge.Domain
+Operis.Domain
 
-TaskForge.Infrastructure
+Operis.Infrastructure
 
 
 
 tests/
 
-TaskForge.Application.Tests
+Operis.Application.Tests
 
 
 
