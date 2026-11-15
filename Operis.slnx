@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Operis.Api/Operis.Api.csproj" />
+    <Project Path="src/Operis.Application/Operis.Application.csproj" />
+    <Project Path="src/Operis.Consumer/Operis.Consumer.csproj" />
+    <Project Path="src/Operis.Domain/Operis.Domain.csproj" />
+    <Project Path="src/Operis.Identity/Operis.Identity.csproj" />
+    <Project Path="src/Operis.Infrastructure/Operis.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Operis.Application.Tests/Operis.Application.Tests.csproj" />
+  </Folder>
+</Solution>
